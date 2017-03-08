@@ -16,7 +16,7 @@ main.o:
 	${CC} ${FLAGS} -c main.cpp
 clean:
 	rm *.o
-run: clean main
+run: main
 	./InsertionSort
 	rm *.o
 	rm ./InsertionSort

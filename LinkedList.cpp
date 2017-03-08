@@ -171,17 +171,46 @@ bool LinkedList::remove(int index) {
 }
 
 /*
- * Swaps the Nodes at the 2 indecies provided. Takes O(n) time, but could probalby
- * be done more efficiently with fewer at() calls
+ * Swaps the Nodes at the 2 indecies provided. Takes O(n) time.
  */
 void LinkedList::swap(int index1, int index2) {
-  Node* temp = new Node();
-  temp->next = this->at(index1)->next;
-  temp->prev = this->at(index1)->prev;
-  this->at(index1)->next = this->at(index2)->next;
-  this->at(index1)->prev = this->at(index2)->prev;
-  this->at(index2)->next = temp->next;
-  this->at(index2)->prev = temp->prev;
-  delete temp;
-  temp = NULL;
+  Node* firstNode = at(index1);
+  Node* secondNode = at(index2);
+
+  Node* tempNext = firstNode->next;     // assign first's values
+  Node* tempPrev = firstNode->prev;     // to temp values.
+
+  firstNode->next->prev = secondNode;   // link values around
+  firstNode->prev->next = secondNode;   // first to second
+
+  secondNode->next->prev = firstNode;   // link values around
+  secondNode->prev->next = firstNode;   // second to first
+
+  firstNode->next = secondNode->next;     // put first in the
+  firstNode->prev = secondNode->prev;     // place of second
+
+  secondNode->prev = tempPrev;       // put second in the
+  secondNode->next = tempNext;       // place of first
+
+  // std::cout << first->next->data << ", " << first->prev->data << "\n";
+  // std::cout << firstNode->data << ": " << firstNode->prev->data << ", " << firstNode->next->data << "\n";
+  // std::cout << second->next->data <<  ", " << second->prev->data <<"\n";
+}
+
+void LinkedList::printForward() const {
+  Node* curr = head;
+  while(curr != NULL) {
+    std::cout << curr->data << ", ";
+    curr = curr->next;
+  }
+  std::cout << "\n";
+}
+
+void LinkedList::printBackward() const {
+  Node* curr = tail;
+  while(curr != NULL) {
+    std::cout << curr->data << ", ";
+    curr = curr->prev;
+  }
+  std::cout << "\n";
 }

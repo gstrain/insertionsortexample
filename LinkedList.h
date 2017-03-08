@@ -31,7 +31,7 @@ public:
   LinkedList::Node* getHead() const;
   LinkedList::Node* getTail() const;
   int getSize() const;
-  int at(int index) const;
+  LinkedList::Node* at(int index) const;
   void add(int toAdd);
   bool remove(int index);
   void swap(int index1, int index2);
