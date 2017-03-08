@@ -8,12 +8,12 @@ FLAGS = -std=c++11
 
 all:main
 
-main:  LinkedList.o main.o
-	${CC} ${FLAGS} LinkedList.o main.o -o InsertionSort
+main:  LinkedList.o InsertionSortTest.o
+	${CC} ${FLAGS} LinkedList.o InsertionSortTest.o -o InsertionSort
 LinkedList.o:
 	${CC} ${FLAGS} -c LinkedList.cpp
-main.o:
-	${CC} ${FLAGS} -c main.cpp
+InsertionSortTest.o:
+	${CC} ${FLAGS} -c InsertionSortTest.cpp
 clean:
 	rm *.o
 run: main
