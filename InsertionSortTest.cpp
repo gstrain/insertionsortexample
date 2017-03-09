@@ -15,6 +15,7 @@ int main() {
   myList.add(0);
 
   myList.printForward();
-  myList.swap(0, 3);
+  myList.swap(0, 9);
   myList.printForward();
+  myList.printBackward();
 }
