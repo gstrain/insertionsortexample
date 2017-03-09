@@ -177,20 +177,30 @@ void LinkedList::swap(int index1, int index2) {
   Node* firstNode = at(index1);
   Node* secondNode = at(index2);
 
-  Node* tempNext = firstNode->next;     // assign first's values
-  Node* tempPrev = firstNode->prev;     // to temp values.
+  Node* before = at(index1 - 1);
+  Node* after = at(index2 + 1);
 
-  firstNode->next->prev = secondNode;   // link values around
-  firstNode->prev->next = secondNode;   // first to second
+  before->next = secondNode;
+  after->prev = firstNode;
 
-  secondNode->next->prev = firstNode;   // link values around
-  secondNode->prev->next = firstNode;   // second to first
-
-  firstNode->next = secondNode->next;     // put first in the
-  firstNode->prev = secondNode->prev;     // place of second
-
-  secondNode->prev = tempPrev;       // put second in the
-  secondNode->next = tempNext;       // place of first
+  secondNode->next = firstNode;
+  firstNode->prev = secondNode;
+  firstNode->next = after;
+  secondNode->prev = before;
+  // Node* tempNext = firstNode->next;     // assign first's values
+  // Node* tempPrev = firstNode->prev;     // to temp values.
+  //
+  // firstNode->next->prev = secondNode;   // link values around
+  // firstNode->prev->next = secondNode;   // first to second
+  //
+  // secondNode->next->prev = firstNode;   // link values around
+  // secondNode->prev->next = firstNode;   // second to first
+  //
+  // firstNode->next = secondNode->next;     // put first in the
+  // firstNode->prev = secondNode->prev;     // place of second
+  //
+  // secondNode->prev = tempPrev;       // put second in the
+  // secondNode->next = tempNext;       // place of first
 
   // std::cout << first->next->data << ", " << first->prev->data << "\n";
   // std::cout << firstNode->data << ": " << firstNode->prev->data << ", " << firstNode->next->data << "\n";

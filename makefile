@@ -15,7 +15,7 @@ LinkedList.o:
 InsertionSortTest.o:
 	${CC} ${FLAGS} -c InsertionSortTest.cpp
 clean:
-	rm *.o
+	rm *o
 run: main
 	./InsertionSort
 	rm *.o
