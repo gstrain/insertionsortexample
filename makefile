@@ -18,7 +18,7 @@ clean:
 	rm *.o
 	rm ./InsertionSort
 	rm *o
-run: main
+run: clean main
 	./InsertionSort
 	make clean
 debug:

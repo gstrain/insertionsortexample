@@ -8,8 +8,13 @@ int main() {
   myList.add(3);
   myList.add(4);
   myList.add(5);
+  myList.add(6);
+  myList.add(7);
+  myList.add(8);
+  myList.add(9);
+  myList.add(0);
 
   myList.printForward();
-  myList.swap(1, 2);
+  myList.swap(2, 3);
   myList.printForward();
 }
