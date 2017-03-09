@@ -17,8 +17,7 @@ InsertionSortTest.o:
 clean:
 	rm *.o
 	rm ./InsertionSort
-	rm *o
-run: clean main
+run: main
 	./InsertionSort
 	make clean
 debug:

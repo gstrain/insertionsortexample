@@ -176,35 +176,40 @@ bool LinkedList::remove(int index) {
 
 /*
  * Swaps the Nodes at the 2 indecies provided. Takes O(n) time.
+ * does NOT work for indecies at the head or tail YET
  */
 void LinkedList::swap(int index1, int index2) {
   Node* firstNode = at(index1);
   Node* secondNode = at(index2);
   if(index2-index1 > 1) {
-    Node* tempNext = firstNode->next;     // assign first's values
-    Node* tempPrev = firstNode->prev;     // to temp values.
+    if(firstNode->prev && secondNode->next) { // not at the head or tail of list
+      Node* tempNext = firstNode->next;     // assign first's values
+      Node* tempPrev = firstNode->prev;     // to temp values.
 
-    if (firstNode->next != NULL) firstNode->next->prev = secondNode;   // link values around
-    if (firstNode->prev != NULL) firstNode->prev->next = secondNode;   // first to second
+      if (firstNode->next != NULL) firstNode->next->prev = secondNode;   // link values around
+      if (firstNode->prev != NULL) firstNode->prev->next = secondNode;   // first to second
 
-    if (secondNode->next != NULL) secondNode->next->prev = firstNode;   // link values around
-    if (secondNode->next != NULL) secondNode->prev->next = firstNode;   // second to first
+      if (secondNode->next != NULL) secondNode->next->prev = firstNode;   // link values around
+      if (secondNode->next != NULL) secondNode->prev->next = firstNode;   // second to first
 
-    firstNode->next = secondNode->next;     // put first in the
-    firstNode->prev = secondNode->prev;     // place of second
+      firstNode->next = secondNode->next;     // put first in the
+      firstNode->prev = secondNode->prev;     // place of second
 
-    secondNode->prev = tempPrev;       // put second in the
-    secondNode->next = tempNext;       // place of first
+      secondNode->prev = tempPrev;       // put second in the
+      secondNode->next = tempNext;       // place of first
+    }
   } else {
-    Node* before = at(index1 - 1);
-    Node* after = at(index2 + 1);
-    before->next = secondNode;
-    after->prev = firstNode;
+    if(firstNode->prev && secondNode->next) { // not at the head or tail of list
+      Node* before = firstNode->prev;
+      Node* after = secondNode->next;
+      before->next = secondNode;
+      after->prev = firstNode;
 
-    secondNode->next = firstNode;
-    firstNode->prev = secondNode;
-    firstNode->next = after;
-    secondNode->prev = before;
+      secondNode->next = firstNode;
+      firstNode->prev = secondNode;
+      firstNode->next = after;
+      secondNode->prev = before;
+    }
   }
   // std::cout << first->next->data << ", " << first->prev->data << "\n";
   // std::cout << firstNode->data << ": " << firstNode->prev->data << ", " << firstNode->next->data << "\n";
