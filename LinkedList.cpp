@@ -180,11 +180,11 @@ void LinkedList::swap(int index1, int index2) {
   Node* tempNext = firstNode->next;     // assign first's values
   Node* tempPrev = firstNode->prev;     // to temp values.
 
-  firstNode->next->prev = secondNode;   // link values around
-  firstNode->prev->next = secondNode;   // first to second
+  if (firstNode->next != NULL) firstNode->next->prev = secondNode;   // link values around
+  if (firstNode->prev != NULL) firstNode->prev->next = secondNode;   // first to second
 
-  secondNode->next->prev = firstNode;   // link values around
-  secondNode->prev->next = firstNode;   // second to first
+  if (secondNode->next != NULL) secondNode->next->prev = firstNode;   // link values around
+  if (secondNode->next != NULL) secondNode->prev->next = firstNode;   // second to first
 
   firstNode->next = secondNode->next;     // put first in the
   firstNode->prev = secondNode->prev;     // place of second
