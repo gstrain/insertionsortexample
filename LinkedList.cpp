@@ -51,6 +51,7 @@ LinkedList::~LinkedList() {
 }
 
 /*
+
  * Returns a reference to the head Node
  * Constant time
  */
@@ -61,6 +62,7 @@ LinkedList::Node* LinkedList::getHead() const {
 /*
  * Returns a reference to the tail Node
  * Constant time
+
  */
 LinkedList::Node* LinkedList::getTail() const {
   return tail;
@@ -76,6 +78,7 @@ int LinkedList::getSize() const {
 
 /*
  * Returns a reference to the Node at the specified index
+
  * NULL is returned for an invalid index
  * Worst case O(n/2)
  */
@@ -126,6 +129,7 @@ void LinkedList::add(int toAdd) {
 
 /*
  * Deletes the node at the specified index from the list, returns true if valid index (successful)
+
  * Constant time for the head and tail, O(n-index) worst case for any index inbetween
  */
 bool LinkedList::remove(int index) {
@@ -176,22 +180,32 @@ bool LinkedList::remove(int index) {
 void LinkedList::swap(int index1, int index2) {
   Node* firstNode = at(index1);
   Node* secondNode = at(index2);
+  if(index2-index1 > 1) {
+    Node* tempNext = firstNode->next;     // assign first's values
+    Node* tempPrev = firstNode->prev;     // to temp values.
 
-  Node* tempNext = firstNode->next;     // assign first's values
-  Node* tempPrev = firstNode->prev;     // to temp values.
+    if (firstNode->next != NULL) firstNode->next->prev = secondNode;   // link values around
+    if (firstNode->prev != NULL) firstNode->prev->next = secondNode;   // first to second
 
-  if (firstNode->next != NULL) firstNode->next->prev = secondNode;   // link values around
-  if (firstNode->prev != NULL) firstNode->prev->next = secondNode;   // first to second
+    if (secondNode->next != NULL) secondNode->next->prev = firstNode;   // link values around
+    if (secondNode->next != NULL) secondNode->prev->next = firstNode;   // second to first
 
-  if (secondNode->next != NULL) secondNode->next->prev = firstNode;   // link values around
-  if (secondNode->next != NULL) secondNode->prev->next = firstNode;   // second to first
+    firstNode->next = secondNode->next;     // put first in the
+    firstNode->prev = secondNode->prev;     // place of second
 
-  firstNode->next = secondNode->next;     // put first in the
-  firstNode->prev = secondNode->prev;     // place of second
+    secondNode->prev = tempPrev;       // put second in the
+    secondNode->next = tempNext;       // place of first
+  } else {
+    Node* before = at(index1 - 1);
+    Node* after = at(index2 + 1);
+    before->next = secondNode;
+    after->prev = firstNode;
 
-  secondNode->prev = tempPrev;       // put second in the
-  secondNode->next = tempNext;       // place of first
-
+    secondNode->next = firstNode;
+    firstNode->prev = secondNode;
+    firstNode->next = after;
+    secondNode->prev = before;
+  }
   // std::cout << first->next->data << ", " << first->prev->data << "\n";
   // std::cout << firstNode->data << ": " << firstNode->prev->data << ", " << firstNode->next->data << "\n";
   // std::cout << second->next->data <<  ", " << second->prev->data <<"\n";
