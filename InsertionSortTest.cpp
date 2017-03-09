@@ -1,21 +1,36 @@
 #include<iostream>
+#include <random>
 #include "LinkedList.h"
 
 int main() {
-  LinkedList myList;
-  myList.add(1);
-  myList.add(2);
-  myList.add(3);
-  myList.add(4);
-  myList.add(5);
-  myList.add(6);
-  myList.add(7);
-  myList.add(8);
-  myList.add(9);
-  myList.add(0);
+  std::random_device rd; // device for seeding generator
+  std::mt19937 rng(rd()); // seed random gen with device
+  std::uniform_int_distribution<int> dist(0, 100); // create distribution
 
-  myList.printForward();
-  myList.swap(0, 9);
-  myList.printForward();
-  myList.printBackward();
+  LinkedList myList;
+
+  for(int i=0; i < 10; i++) {
+    myList.add(dist(rng));      // populate list with random values
+  }
+
+  myList.printForward();  // print unsorted
+  // myList.sort();          // calls embedded insertion sort
+
+  // myList.swap(myList.at(0), myList.at(2));
+  // myList.swap(myList.at(2), myList.at(4));
+  // myList.swap(myList.at(4), myList.at(9));
+  // myList.swap(myList.at(0), myList.at(9));
+  // myList.swap(myList.at(0), myList.at(1));
+  // myList.swap(myList.at(1), myList.at(2));
+  // myList.swap(myList.at(8), myList.at(9));
+
+  myList.swap((0), (2));
+  myList.swap((2), (4));
+  myList.swap((4), (9));
+  myList.swap((0), (9));
+  myList.swap((0), (1));
+  myList.swap((1), (2));
+  myList.swap((8), (9));
+  // myList.swap(0, 1);
+  myList.printForward();  // print sorted
 }

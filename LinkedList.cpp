@@ -174,19 +174,37 @@ bool LinkedList::remove(int index) {
   return true;
 }
 
-/*
- * Swaps the Nodes at the 2 indecies provided. Takes O(n) time.
+ /*
+ * Sorts the list using insertion sort algorithm
  */
-void LinkedList::swap(int index1, int index2) {
+ void LinkedList::sort() {
+   Node* curr = head->next; // start at position 2
+   int key, toCompare;
+   for(int index = 1; index < size; index++) {
+     key = curr->data;
+     toCompare = curr->prev->data;
+     for(int j = index-1; j > 0 && toCompare > key; j--) {
+       swap(curr->prev, curr);
+     }
+     curr = curr->next;
+   }
+ }
+
+ /*
+ * Swaps the Nodes at the 2 indecies provided. Takes O(n) time.
+ * firstNode must be in a previous position to secondNode
+ */
+void LinkedList::swap(LinkedList::Node* firstNode, LinkedList::Node* secondNode) {
   if(index2 < index1) { // swap indecies if first is bigger
     int temp = index1;
     index1 = index2;
     index2 = temp;
   }
-  Node* firstNode = at(index1);
-  Node* secondNode = at(index2);
+  // Node* firstNode = at(index1);
+  // Node* secondNode = at(index2);
+
   // nodes are separated
-  if(index2-index1 > 1) {
+  if(firstNode->next == secondNode) {
     // not at the head or tail of list
     if(firstNode->prev && secondNode->next) {
       Node* tempNext = firstNode->next;     // assign first's values

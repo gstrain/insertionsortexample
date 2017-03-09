@@ -33,8 +33,9 @@ public:
   int getSize() const;
   LinkedList::Node* at(int index) const;
   void add(int toAdd);
+  void sort();
   bool remove(int index);
-  void swap(int index1, int index2);
+  void swap(LinkedList::Node* first, LinkedList::Node* second);
   void printForward() const;
   void printBackward() const;
 
