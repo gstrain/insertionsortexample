@@ -35,7 +35,7 @@ public:
   void add(int toAdd);
   void sort();
   bool remove(int index);
-  void swap(LinkedList::Node* first, LinkedList::Node* second);
+  void swap(LinkedList::Node* firstNode, LinkedList::Node* secondNode);
   void printForward() const;
   void printBackward() const;
 

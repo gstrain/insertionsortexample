@@ -16,21 +16,13 @@ int main() {
   myList.printForward();  // print unsorted
   // myList.sort();          // calls embedded insertion sort
 
-  // myList.swap(myList.at(0), myList.at(2));
-  // myList.swap(myList.at(2), myList.at(4));
-  // myList.swap(myList.at(4), myList.at(9));
-  // myList.swap(myList.at(0), myList.at(9));
-  // myList.swap(myList.at(0), myList.at(1));
-  // myList.swap(myList.at(1), myList.at(2));
-  // myList.swap(myList.at(8), myList.at(9));
+  myList.swap(myList.at(0), myList.at(2));
+  myList.swap(myList.at(2), myList.at(4));
+  myList.swap(myList.at(4), myList.at(9));
+  myList.swap(myList.at(0), myList.at(9));
+  myList.swap(myList.at(0), myList.at(1));
+  myList.swap(myList.at(1), myList.at(2));
+  myList.swap(myList.at(8), myList.at(9));
 
-  myList.swap((0), (2));
-  myList.swap((2), (4));
-  myList.swap((4), (9));
-  myList.swap((0), (9));
-  myList.swap((0), (1));
-  myList.swap((1), (2));
-  myList.swap((8), (9));
-  // myList.swap(0, 1);
   myList.printForward();  // print sorted
 }
