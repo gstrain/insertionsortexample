@@ -18,7 +18,7 @@ clean:
 	rm *.o
 	rm ./InsertionSort
 run: main
-	./InsertionSort
+	time ./InsertionSort
 	make clean
 debug:
 	${CC} ${FLAGS} -g -c LinkedList.cpp

@@ -77,26 +77,26 @@ int LinkedList::getSize() const {
 }
 
 /*
- * Returns a reference to the Node at the specified index
+ * Returns a reference to the Node at the specified i
 
- * NULL is returned for an invalid index
+ * NULL is returned for an invalid i
  * Worst case O(n/2)
  */
-LinkedList::Node* LinkedList::at(int index) const {
-  if(index < 0 || index >= size) {
+LinkedList::Node* LinkedList::at(int i) const {
+  if(i < 0 || i >= size) {
     return NULL;
   }
 
   Node* curr = NULL;
-  if(index < size/2) {
+  if(i < size/2) {
     curr = head;
-    for(int i=0; i < index; i++) {
+    for(int i=0; i < i; i++) {
       curr = curr->next;
     }
   }
   else {
     curr = tail;
-    for(int i=size-1; i > index; i--) {
+    for(int i=size-1; i > i; i--) {
       curr = curr->prev;
     }
   }
@@ -128,7 +128,7 @@ void LinkedList::add(int toAdd) {
 }
 
 /*
- * Deletes the node at the specified index from the list, returns true if valid index (successful)
+ * Deletes the node at the specified i from the list, returns true if valid ii (successful)
 
  * Constant time for the head and tail, O(n-index) worst case for any index inbetween
  */
@@ -178,15 +178,15 @@ bool LinkedList::remove(int index) {
 * Sorts the list using insertion sort algorithm
 */
 void LinkedList::sort() {
-  Node* curr = head->next; // start at position 2
-  int key, toCompare;
-  for(int index = 1; index < size; index++) {
-    key = curr->data;
-    toCompare = curr->prev->data;
-    for(int j = index-1; j > 0 && toCompare > key; j--) {
-      // swap(curr->prev, curr);
+  Node* toInsert = head->next; // start at second node
+  while(toInsert != NULL) {
+    Node* toCompare = toInsert->prev; // we'll be comparing it to the previous value
+
+    while(toCompare != NULL && toCompare->data > toInsert->data) { // compare each node
+      swap(toCompare, toInsert);      // swap the nodes in place
+      toCompare = toCompare->prev->prev;  // pointer doesn't maintain position, so go back 2
     }
-    curr = curr->next;
+    toInsert = toInsert->next;    // next node to insert
   }
 }
 
@@ -195,7 +195,7 @@ void LinkedList::sort() {
  */
 void LinkedList::swap(LinkedList::Node* firstNode, LinkedList::Node* secondNode) {
   // nodes are separated
-  if(firstNode->next != secondNode /*index2-index1 > 1*/) {
+  if(firstNode->next != secondNode /*i2-i1 > 1*/) {
     // not at the head or tail of list
     if(firstNode->prev && secondNode->next) {
       Node* tempNext = firstNode->next;     // assign first's values

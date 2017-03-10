@@ -9,20 +9,13 @@ int main() {
 
   LinkedList myList;
 
-  for(int i=0; i < 10; i++) {
+  for(int i=100000; i > 0; i--) {
     myList.add(dist(rng));      // populate list with random values
   }
 
-  myList.printForward();  // print unsorted
-  // myList.sort();          // calls embedded insertion sort
-
-  myList.swap(myList.at(0), myList.at(2));
-  myList.swap(myList.at(2), myList.at(4));
-  myList.swap(myList.at(4), myList.at(9));
-  myList.swap(myList.at(0), myList.at(9));
-  myList.swap(myList.at(0), myList.at(1));
-  myList.swap(myList.at(1), myList.at(2));
-  myList.swap(myList.at(8), myList.at(9));
+  // myList.printForward();  // print unsorted
+  myList.sort();          // calls embedded insertion sort
 
   myList.printForward();  // print sorted
+  // myList.printBackward();
 }
