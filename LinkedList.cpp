@@ -178,15 +178,23 @@ bool LinkedList::remove(int index) {
 * Sorts the list using insertion sort algorithm
 */
 void LinkedList::sort() {
-  Node* toInsert = head->next; // start at second node
+  Node* curr = head->next;
+  Node* toInsert = curr; // start at second node
+  int count = 2;
   while(toInsert != NULL) {
-    Node* toCompare = toInsert->prev; // we'll be comparing it to the previous value
-
-    while(toCompare != NULL && toCompare->data > toInsert->data) { // compare each node
-      swap(toCompare, toInsert);      // swap the nodes in place
-      toCompare = toCompare->prev->prev;  // pointer doesn't maintain position, so go back 2
+    std::cout << "Sorting element: " << count << "/" << size << "\n";
+    bool once = false;
+    while(toInsert->prev != NULL && (toInsert->prev->data) > (toInsert->data)) { // compare each node
+      
+      swap(toInsert->prev, toInsert);      // swap the nodes in place
+        if (!once) {    // the purpose of this if is to fix an offset bug that
+        once = true;    // happens bc toInsert is a pointer. It needs to keep
+        curr = curr->next;// track of its position and it moves with the swap
+      }
     }
-    toInsert = toInsert->next;    // next node to insert
+    curr = curr->next;
+    toInsert = curr;    // next node to insert
+    count++;
   }
 }
 
