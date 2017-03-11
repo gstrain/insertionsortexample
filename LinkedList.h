@@ -38,6 +38,7 @@ public:
   void swap(LinkedList::Node* firstNode, LinkedList::Node* secondNode);
   void printForward() const;
   void printBackward() const;
+  void printToFile() const;
 
 };
 
