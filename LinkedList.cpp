@@ -8,6 +8,7 @@
  */
 
 #include "LinkedList.h"
+#include <fstream>
 
 /*
  * Default constructor
@@ -185,7 +186,7 @@ void LinkedList::sort() {
     std::cout << "Sorting element: " << count << "/" << size << "\n";
     bool once = false;
     while(toInsert->prev != NULL && (toInsert->prev->data) > (toInsert->data)) { // compare each node
-      
+
       swap(toInsert->prev, toInsert);      // swap the nodes in place
         if (!once) {    // the purpose of this if is to fix an offset bug that
         once = true;    // happens bc toInsert is a pointer. It needs to keep
@@ -331,4 +332,15 @@ void LinkedList::printBackward() const {
     curr = curr->prev;
   }
   std::cout << "\n";
+}
+
+void LinkedList::printToFile() const {
+  std::ofstream outFile;
+  outFile.open("output.txt");
+  Node* curr = head;
+  while(curr != NULL) {
+    outFile << curr->data << "\n";
+    curr = curr->next;
+  }
+  outFile.close();
 }
