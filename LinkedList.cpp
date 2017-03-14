@@ -4,7 +4,7 @@
  * inserting/deleting/looking up elements and printing the list.
  *
  * @Abe Ramseyer
- * 2-14-2017
+ * Updated 3-12-2017
  */
 
 #include "LinkedList.h"
@@ -12,7 +12,7 @@
 
 /*
  * Default constructor
- * Constant Time
+ * O(1)
  */
 LinkedList::LinkedList() {
   this->head = NULL;
@@ -54,7 +54,7 @@ LinkedList::~LinkedList() {
 /*
 
  * Returns a reference to the head Node
- * Constant time
+ * O(1)
  */
 LinkedList::Node* LinkedList::getHead() const {
   return head;
@@ -62,8 +62,7 @@ LinkedList::Node* LinkedList::getHead() const {
 
 /*
  * Returns a reference to the tail Node
- * Constant time
-
+ * O(1)
  */
 LinkedList::Node* LinkedList::getTail() const {
   return tail;
@@ -71,7 +70,7 @@ LinkedList::Node* LinkedList::getTail() const {
 
 /*
  * Returns the list's size
- * Constant time
+ * O(1)
  */
 int LinkedList::getSize() const {
   return size;
@@ -107,7 +106,7 @@ LinkedList::Node* LinkedList::at(int i) const {
 
 /*
  * Adds a value to the end of the linked list
- * Constant time
+ * O(1)
  */
 void LinkedList::add(int toAdd) {
   if(head == NULL) {
@@ -130,8 +129,7 @@ void LinkedList::add(int toAdd) {
 
 /*
  * Deletes the node at the specified i from the list, returns true if valid ii (successful)
-
- * Constant time for the head and tail, O(n-index) worst case for any index inbetween
+ * O(1) for the head and tail, O(n-index) worst case for any index inbetween
  */
 bool LinkedList::remove(int index) {
   Node* curr = head;
@@ -176,8 +174,9 @@ bool LinkedList::remove(int index) {
 }
 
 /*
-* Sorts the list using insertion sort algorithm
-*/
+ * Sorts the list using insertion sort algorithm
+ * O(n^2)
+ */
 void LinkedList::sort() {
   Node* curr = head->next;
   Node* toInsert = curr; // start at second node
@@ -189,9 +188,9 @@ void LinkedList::sort() {
 
       swap(toInsert->prev, toInsert);      // swap the nodes in place
         if (!once) {    // the purpose of this if is to fix an offset bug that
-        once = true;    // happens bc toInsert is a pointer. It needs to keep
-        curr = curr->next;// track of its position and it moves with the swap
-      }
+          once = true;    // happens bc toInsert is a pointer. It needs to keep
+          curr = curr->next;// track of its position and it moves with the swap
+        }
     }
     curr = curr->next;
     toInsert = curr;    // next node to insert
@@ -200,7 +199,8 @@ void LinkedList::sort() {
 }
 
 /*
- * Swaps the Nodes at the 2 indecies provided. Takes O(n) time.
+ * Swaps the Nodes at the 2 indecies provided.
+ * O(1)
  */
 void LinkedList::swap(LinkedList::Node* firstNode, LinkedList::Node* secondNode) {
   // nodes are separated
@@ -316,6 +316,10 @@ void LinkedList::swap(LinkedList::Node* firstNode, LinkedList::Node* secondNode)
   }
 }
 
+/*
+ * Prints the list to the console using Node->next links.
+ * O(n)
+ */
 void LinkedList::printForward() const {
   Node* curr = head;
   while(curr != NULL) {
@@ -325,6 +329,10 @@ void LinkedList::printForward() const {
   std::cout << "\n";
 }
 
+/*
+ * Prints the list to the console using Node->prev links.
+ * O(n)
+ */
 void LinkedList::printBackward() const {
   Node* curr = tail;
   while(curr != NULL) {
@@ -334,6 +342,10 @@ void LinkedList::printBackward() const {
   std::cout << "\n";
 }
 
+/*
+ * Prints the list to the file "output.txt", overwrites any existing file
+ * O(n)
+ */
 void LinkedList::printToFile() const {
   std::ofstream outFile;
   outFile.open("output.txt");
