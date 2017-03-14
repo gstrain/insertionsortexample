@@ -82,21 +82,21 @@ int LinkedList::getSize() const {
  * NULL is returned for an invalid i
  * Worst case O(n/2)
  */
-LinkedList::Node* LinkedList::at(int i) const {
-  if(i < 0 || i >= size) {
+LinkedList::Node* LinkedList::at(int index) const {
+  if(index < 0 || index >= size) {
     return NULL;
   }
 
   Node* curr = NULL;
-  if(i < size/2) {
+  if(index < size/2) {
     curr = head;
-    for(int i=0; i < i; i++) {
+    for(int i=0; i < index; i++) {
       curr = curr->next;
     }
   }
   else {
     curr = tail;
-    for(int i=size-1; i > i; i--) {
+    for(int i=size-1; i > index; i--) {
       curr = curr->prev;
     }
   }
@@ -108,7 +108,7 @@ LinkedList::Node* LinkedList::at(int i) const {
  * Adds a value to the end of the linked list
  * O(1)
  */
-void LinkedList::add(int toAdd) {
+void LinkedList::add(long toAdd) {
   if(head == NULL) {
     Node* newNode = new Node();
     newNode->data = toAdd;
