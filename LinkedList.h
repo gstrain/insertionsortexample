@@ -14,7 +14,7 @@ class LinkedList {
 
  private:
   struct Node {
-    int data;
+    long data;
     Node* next;
     Node* prev;
   };
@@ -32,7 +32,7 @@ public:
   LinkedList::Node* getTail() const;
   int getSize() const;
   LinkedList::Node* at(int index) const;
-  void add(int toAdd);
+  void add(long toAdd);
   void sort();
   bool remove(int index);
   void swap(LinkedList::Node* firstNode, LinkedList::Node* secondNode);
