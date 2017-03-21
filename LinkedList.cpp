@@ -182,7 +182,7 @@ void LinkedList::sort() {
   Node* toInsert = curr; // start at second node
   int count = 2;
   while(toInsert != NULL) {
-    std::cout << "Sorting element: " << count << "/" << size << "\n";
+    std::cout << "Sorting element: " << count << "/" << size << "\r" << std::flush;
     bool once = false;
     while(toInsert->prev != NULL && (toInsert->prev->data) > (toInsert->data)) { // compare each node
 
@@ -196,6 +196,7 @@ void LinkedList::sort() {
     toInsert = curr;    // next node to insert
     count++;
   }
+  std::cout << "\n";
 }
 
 /*
