@@ -346,9 +346,9 @@ void LinkedList::printBackward() const {
  * Prints the list to the file "output.txt", overwrites any existing file
  * O(n)
  */
-void LinkedList::printToFile() const {
+void LinkedList::printToFile(std::string& outFilename) const {
   std::ofstream outFile;
-  outFile.open("output.txt");
+  outFile.open(outFilename);
   Node* curr = head;
   while(curr != NULL) {
     outFile << curr->data << "\n";
