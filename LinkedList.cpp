@@ -184,20 +184,140 @@ void LinkedList::sort() {
   while(toInsert != NULL) {
     std::cout << "Sorting element: " << count << "/" << size << "\r" << std::flush;
     bool once = false;
-    while(toInsert->prev != NULL && (toInsert->prev->data) > (toInsert->data)) { // compare each node
-
-      swap(toInsert->prev, toInsert);      // swap the nodes in place
-        if (!once) {    // the purpose of this if is to fix an offset bug that
-          once = true;    // happens bc toInsert is a pointer. It needs to keep
-          curr = curr->next;// track of its position and it moves with the swap
-        }
+    Node* toCompare = toInsert->prev;
+    while(toCompare != NULL && (toCompare->data) > (toCompare)) { // compare each node
+      toCompare = toCompare->prev;
+      if (!once) {    // the purpose of this if is to fix an offset bug that
+        once = true;    // happens bc toInsert is a pointer. It needs to keep
+        curr = curr->next;// track of its position and it moves with the swap
+      }
     }
+    move(toCompare, toInsert);      // moves toInsert to directly after toCompare
     curr = curr->next;
     toInsert = curr;    // next node to insert
     count++;
   }
   std::cout << "\n";
 }
+
+/*
+ * Moves secondNode into the position direclty following firstNode
+ * O(1)
+ */
+void LinkedList::move(LinkedList::Node* firstNode, LinkedList::Node* secondNode) {
+  // nodes are separated
+  if(firstNode->next != secondNode /*i2-i1 > 1*/) {
+    // not at the head or tail of list
+    if(firstNode->prev && secondNode->next) {
+      Node* tempNext = firstNode->next;     // assign first's values
+      Node* tempPrev = firstNode->prev;     // to temp values.
+
+      firstNode->next->prev = secondNode;   // link values around
+      firstNode->prev->next = secondNode;   // first to second
+
+      secondNode->next->prev = firstNode;   // link values around
+      secondNode->prev->next = firstNode;   // second to first
+
+      firstNode->next = secondNode->next;              // put first in the
+      firstNode->prev = secondNode->prev;             // place of second
+
+      secondNode->prev = tempPrev;                    // put second in the
+      secondNode->next = tempNext;                   // place of first
+    }
+    // tail case
+    else if (firstNode->prev) {
+      Node* tempNext = firstNode->next;
+      Node* tempPrev = firstNode->prev;
+
+      secondNode->prev->next = firstNode;   // adjust tail to first node
+      firstNode->prev = secondNode->prev;
+      firstNode->next = NULL;
+      tail = firstNode;
+
+      secondNode->next = tempNext;    // adjust second node
+      secondNode->prev = tempPrev;
+      tempPrev->next = secondNode;
+      tempNext->prev = secondNode;
+    }
+    // head case
+    else if (secondNode->next) {
+      Node* tempNext = secondNode->next;
+      Node* tempPrev = secondNode->prev;
+
+      secondNode->prev = NULL;            // adjust head to first node
+      secondNode->next = firstNode->next;
+      firstNode->next->prev = secondNode;
+      head = secondNode;
+
+      firstNode->prev = tempPrev;       // adjust first node
+      firstNode->next = tempNext;
+      tempPrev->next = firstNode;
+      tempNext->prev = firstNode;
+    }
+    // swap opposite ends when size > 2
+    else {
+      Node* after = firstNode->next;
+      Node* before = secondNode->prev;
+
+      before->next = firstNode;
+      after->prev = secondNode;
+      firstNode->next = NULL;
+      firstNode->prev = before;
+      secondNode->prev = NULL;
+      secondNode->next = after;
+
+      head = secondNode;
+      tail = firstNode;
+    }
+  }
+  // nodes are next to each other
+  else {
+    // not at the head or tail of list
+    if(firstNode->prev && secondNode->next) {
+      Node* before = firstNode->prev;
+      Node* after = secondNode->next;
+      before->next = secondNode;
+      after->prev = firstNode;
+
+      secondNode->next = firstNode;
+      firstNode->prev = secondNode;
+      firstNode->next = after;
+      secondNode->prev = before;
+    }
+    // tail case
+    else if(firstNode->prev) {
+      Node* before = firstNode->prev;
+      before->next = secondNode;
+      secondNode->prev = before;
+      secondNode->next = firstNode;
+
+      firstNode->next = NULL;
+      firstNode->prev = secondNode;
+      tail = firstNode;
+    }
+    // head case
+    else if(secondNode->next){
+      Node* after = secondNode->next;
+      after->prev = firstNode;
+      firstNode->next = after;
+      firstNode->prev = secondNode;
+
+      secondNode->prev = NULL;
+      secondNode->next = firstNode;
+      head = secondNode;
+    }
+    // list is size 2
+    else {
+      head = secondNode;
+      tail = firstNode;
+      firstNode->prev = secondNode;
+      firstNode->next = NULL;
+      secondNode->prev = NULL;
+      secondNode->next = firstNode;
+    }
+  }
+}
+
 
 /*
  * Swaps the Nodes at the 2 indecies provided.

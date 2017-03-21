@@ -36,6 +36,7 @@ public:
   void sort();
   bool remove(int index);
   void swap(LinkedList::Node* firstNode, LinkedList::Node* secondNode);
+  void move(LinkedList::Node* firstNode, LinkedList::Node* secondNode);
   void printForward() const;
   void printBackward() const;
   void printToFile(std::string& outFilename) const;
