@@ -33,7 +33,8 @@ public:
   int getSize() const;
   LinkedList::Node* at(int index) const;
   void add(long toAdd);
-  void sort();
+  void bubbleSort();
+  void insertionSort();
   bool remove(int index);
   void swap(LinkedList::Node* firstNode, LinkedList::Node* secondNode);
   void move(LinkedList::Node* firstNode, LinkedList::Node* secondNode);

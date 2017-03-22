@@ -177,34 +177,32 @@ bool LinkedList::remove(int index) {
  * Sorts the list using insertion sort algorithm
  * O(n^2)
  */
-void LinkedList::sort() {
+void LinkedList::bubbleSort() {
   Node* curr = head->next;
   Node* toInsert = curr; // start at second node
   int count = 2;
   while(toInsert != NULL) {
-    std::cout << "Sorting element: " << count << "/" << size << "\r" << std::flush;
+    std::cout << "Sorting element: " << count << "/" << size << "\n";
     bool once = false;
-    Node* toCompare = toInsert->prev;
-    while(toCompare != NULL && (toCompare->data) > (toCompare)) { // compare each node
-      toCompare = toCompare->prev;
-      if (!once) {    // the purpose of this if is to fix an offset bug that
-        once = true;    // happens bc toInsert is a pointer. It needs to keep
-        curr = curr->next;// track of its position and it moves with the swap
-      }
+    while(toInsert->prev != NULL && (toInsert->prev->data) > (toInsert->data)) { // compare each node
+
+      swap(toInsert->prev, toInsert);      // swap the nodes in place
+        if (!once) {    // the purpose of this if is to fix an offset bug that
+          once = true;    // happens bc toInsert is a pointer. It needs to keep
+          curr = curr->next;// track of its position and it moves with the swap
+        }
     }
-    move(toCompare, toInsert);      // moves toInsert to directly after toCompare
     curr = curr->next;
     toInsert = curr;    // next node to insert
     count++;
   }
-  std::cout << "\n";
 }
 
 /*
- * Moves secondNode into the position direclty following firstNode
+ * Swaps the Nodes at the 2 indecies provided.
  * O(1)
  */
-void LinkedList::move(LinkedList::Node* firstNode, LinkedList::Node* secondNode) {
+void LinkedList::swap(LinkedList::Node* firstNode, LinkedList::Node* secondNode) {
   // nodes are separated
   if(firstNode->next != secondNode /*i2-i1 > 1*/) {
     // not at the head or tail of list
@@ -318,12 +316,38 @@ void LinkedList::move(LinkedList::Node* firstNode, LinkedList::Node* secondNode)
   }
 }
 
+/*
+ * Sorts the list using insertion sort algorithm
+ * O(n^2)
+ */
+void LinkedList::insertionSort() {
+  Node* curr = head->next;
+  Node* toInsert = curr; // start at second node
+  int count = 2;
+  while(toInsert != NULL) {
+    std::cout << "Sorting element: " << count << "/" << size << "\r" << std::flush;
+    bool once = false;
+    Node* toCompare = toInsert->prev;
+    while(toCompare != NULL && (toCompare->data) > (toCompare)) { // compare each node
+      toCompare = toCompare->prev;
+      if (!once) {    // the purpose of this if is to fix an offset bug that
+        once = true;    // happens bc toInsert is a pointer. It needs to keep
+        curr = curr->next;// track of its position and it moves with the swap
+      }
+    }
+    move(toCompare, toInsert);      // moves toInsert to directly after toCompare
+    curr = curr->next;
+    toInsert = curr;    // next node to insert
+    count++;
+  }
+  std::cout << "\n";
+}
 
 /*
- * Swaps the Nodes at the 2 indecies provided.
+ * Moves secondNode into the position direclty following firstNode
  * O(1)
  */
-void LinkedList::swap(LinkedList::Node* firstNode, LinkedList::Node* secondNode) {
+void LinkedList::move(LinkedList::Node* firstNode, LinkedList::Node* secondNode) {
   // nodes are separated
   if(firstNode->next != secondNode /*i2-i1 > 1*/) {
     // not at the head or tail of list
