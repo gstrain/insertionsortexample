@@ -23,7 +23,7 @@ int main(int argc, char* argv[]) {
 
   // read numbers from filename provided
   if (readFromFile(inFilename)) {
-    myList.sort();
+    myList.insertionSort();
     myList.printToFile(outFilename);
   }
   else

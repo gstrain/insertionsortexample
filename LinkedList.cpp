@@ -182,12 +182,12 @@ void LinkedList::bubbleSort() {
   Node* toInsert = curr; // start at second node
   int count = 2;
   while(toInsert != NULL) {
-    std::cout << "Sorting element: " << count << "/" << size << "\n";
+    std::cout << "Sorting element: " << count << "/" << size << "\r" << std::flush;
     bool once = false;
     while(toInsert->prev != NULL && (toInsert->prev->data) > (toInsert->data)) { // compare each node
 
       swap(toInsert->prev, toInsert);      // swap the nodes in place
-        if (!once) {    // the purpose of this if is to fix an offset bug that
+      if (!once) {    // the purpose of this if is to fix an offset bug that
           once = true;    // happens bc toInsert is a pointer. It needs to keep
           curr = curr->next;// track of its position and it moves with the swap
         }
@@ -199,7 +199,7 @@ void LinkedList::bubbleSort() {
 }
 
 /*
- * Swaps the Nodes at the 2 indecies provided.
+ * Swaps the two Nodes provided, secondNode must come after firstNode
  * O(1)
  */
 void LinkedList::swap(LinkedList::Node* firstNode, LinkedList::Node* secondNode) {
@@ -328,7 +328,7 @@ void LinkedList::insertionSort() {
     std::cout << "Sorting element: " << count << "/" << size << "\r" << std::flush;
     bool once = false;
     Node* toCompare = toInsert->prev;
-    while(toCompare != NULL && (toCompare->data) > (toCompare)) { // compare each node
+    while(toCompare != NULL && (toCompare->data) > (toInsert->data)) { // compare each node
       toCompare = toCompare->prev;
       if (!once) {    // the purpose of this if is to fix an offset bug that
         once = true;    // happens bc toInsert is a pointer. It needs to keep
@@ -345,6 +345,7 @@ void LinkedList::insertionSort() {
 
 /*
  * Moves secondNode into the position direclty following firstNode
+ * secondNode must come after firstNode
  * O(1)
  */
 void LinkedList::move(LinkedList::Node* firstNode, LinkedList::Node* secondNode) {
