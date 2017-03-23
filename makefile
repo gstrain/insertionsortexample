@@ -17,9 +17,6 @@ InsertionSortTest.o:
 clean:
 	rm *.o
 	rm ./InsertionSort
-run: main
-	time ./InsertionSort
-	make clean
 debug:
 	${CC} ${FLAGS} -g -c LinkedList.cpp
 	${CC} ${FLAGS} -g -c InsertionSortTest.cpp
